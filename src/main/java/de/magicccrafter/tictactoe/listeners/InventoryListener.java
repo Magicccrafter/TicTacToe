@@ -1,7 +1,9 @@
 package de.magicccrafter.tictactoe.listeners;
 
 import de.magicccrafter.tictactoe.TicTacToe;
+import de.magicccrafter.tictactoe.api.event.TicTacToeMatchCancelEvent;
 import de.magicccrafter.tictactoe.utils.TicTacToeMatch;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -29,6 +31,8 @@ public class InventoryListener implements Listener {
 
             match.getPlayerA().playSound(match.getPlayerA().getLocation(), Sound.BLOCK_ANVIL_DESTROY, 1, 1);
             match.getPlayerB().playSound(match.getPlayerB().getLocation(), Sound.BLOCK_ANVIL_DESTROY, 1, 1);
+
+            Bukkit.getPluginManager().callEvent(new TicTacToeMatchCancelEvent(match));
 
             match = null;
         }

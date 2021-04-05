@@ -1,6 +1,8 @@
 package de.magicccrafter.tictactoe.utils;
 
 import de.magicccrafter.tictactoe.TicTacToe;
+import de.magicccrafter.tictactoe.api.event.TicTacToeMatchEndEvent;
+import de.magicccrafter.tictactoe.api.event.TicTacToeMatchStartEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -138,6 +140,8 @@ public class TicTacToeMatch {
         this.playerA.playSound(playerA.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
         this.playerB.playSound(playerB.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
 
+        Bukkit.getPluginManager().callEvent(new TicTacToeMatchStartEvent(this));
+
         reloadInventory();
     }
 
@@ -216,11 +220,19 @@ public class TicTacToeMatch {
 
             this.getPlayerA().sendMessage(TicTacToe.getInstance().getPrefix() + "§cDas Match ist unentschieden ausgegangen");
             this.getPlayerB().sendMessage(TicTacToe.getInstance().getPrefix() + "§cDas Match ist unentschieden ausgegangen");
+
+            Bukkit.getPluginManager().callEvent(new TicTacToeMatchEndEvent(null, null, this, true));
         }
     }
     
     public void winGame(Player player, Integer slot1, Integer slot2, Integer slot3) {
         this.winner = player;
+        Player loser = null;
+        if(player.getUniqueId().toString().equals(playerA.getUniqueId().toString())) {
+            loser = playerB;
+        } else if(player.getUniqueId().toString().equals(playerB.getUniqueId())) {
+            loser = playerA;
+        }
         TicTacToe.getInstance().getMatches().unregisterTicTacToeMatch(this.playerA);
         TicTacToe.getInstance().getMatches().unregisterTicTacToeMatch(this.playerB);
 
@@ -242,16 +254,13 @@ public class TicTacToeMatch {
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
         player.sendTitle("§a§lMatch gewonnen", "§7[§aTicTacToe§7]", 15, 80, 15);
 
-        if(player.getUniqueId().toString().equals(playerA.getUniqueId().toString())) {
-            playerB.playSound(playerB.getLocation(), Sound.BLOCK_ANVIL_DESTROY, 1, 1);
-            playerB.sendTitle("§c§lMatch verloren", "§7[§aTicTacToe§7]", 15, 80, 15);
-        } else if(player.getUniqueId().toString().equals(playerB.getUniqueId())) {
-            playerA.playSound(playerA.getLocation(), Sound.BLOCK_ANVIL_DESTROY, 1, 1);
-            playerA.sendTitle("§c§lMatch verloren", "§7[§aTicTacToe§7]", 15, 80, 15);
-        }
+        loser.playSound(playerA.getLocation(), Sound.BLOCK_ANVIL_DESTROY, 1, 1);
+        loser.sendTitle("§c§lMatch verloren", "§7[§aTicTacToe§7]", 15, 80, 15);
 
         this.getPlayerA().sendMessage(TicTacToe.getInstance().getPrefix() + "§c" + player.getName() + " §ahat das Match gewonnen");
         this.getPlayerB().sendMessage(TicTacToe.getInstance().getPrefix() + "§c" + player.getName() + " §ahat das Match gewonnen");
+
+        Bukkit.getPluginManager().callEvent(new TicTacToeMatchEndEvent(player, loser, this, false));
 
         Bukkit.getScheduler().runTaskLater(TicTacToe.getInstance(), new Runnable() {
             @Override
