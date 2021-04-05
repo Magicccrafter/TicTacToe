@@ -9,11 +9,12 @@ This is a TicTacToe Plugin based on the SpigotAPI. The plugin ensures that playe
 - Players can send match requests
 - Players can accept or deny match requests
 - TicTacToe Inventory with the team color, skulls and the tic tac toe field.
+- TicTacToe queue command
+- Commands: /match, /acceptmatch, /denymatch, /matchqueue
 
 ## Work in progress Features
 
 - Admin command to create Matches between 2 players
-- TicTacToe queue command
 
 ## API
 The Plugin also contains an API with 3 Bukkit Events and a easy to use API class.
