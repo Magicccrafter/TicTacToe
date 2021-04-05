@@ -1,8 +1,10 @@
 package de.magicccrafter.tictactoe;
 
+import de.magicccrafter.tictactoe.api.TicTacToeAPI;
 import de.magicccrafter.tictactoe.commands.AcceptMatchCommand;
 import de.magicccrafter.tictactoe.commands.DenyMatchCommand;
 import de.magicccrafter.tictactoe.commands.MatchCommand;
+import de.magicccrafter.tictactoe.commands.MatchQueueCommand;
 import de.magicccrafter.tictactoe.listeners.InventoryListener;
 import de.magicccrafter.tictactoe.listeners.JoinListener;
 import de.magicccrafter.tictactoe.listeners.QuitListener;
@@ -21,6 +23,7 @@ public class TicTacToe extends JavaPlugin {
     private ItemUtils itemUtils;
     private TicTacToeMatches matches;
     private TicTacToeRequests requests;
+    private TicTacToeAPI ticTacToeAPI;
 
     @Override
     public void onEnable() {
@@ -33,6 +36,7 @@ public class TicTacToe extends JavaPlugin {
         getCommand("match").setExecutor(new MatchCommand());
         getCommand("acceptmatch").setExecutor(new AcceptMatchCommand());
         getCommand("denymatch").setExecutor(new DenyMatchCommand());
+        getCommand("matchqueue").setExecutor(new MatchQueueCommand());
 
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new InventoryListener(), this);
@@ -69,5 +73,9 @@ public class TicTacToe extends JavaPlugin {
 
     public TicTacToeRequests getRequests() {
         return requests;
+    }
+
+    public TicTacToeAPI getTicTacToeAPI() {
+        return ticTacToeAPI;
     }
 }

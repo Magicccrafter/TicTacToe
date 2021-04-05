@@ -27,6 +27,8 @@ public class TicTacToeAPI {
         return TicTacToe.getInstance().getMatches().getPlayersTicTacToeMatch(player);
     }
 
-
+    public Boolean isInMatch(Player player) {
+        return TicTacToe.getInstance().getMatches().isInMatch(player);
+    }
 
 }

@@ -9,3 +9,4 @@ commands:
   match:
   acceptmatch:
   denymatch:
+  matchqueue:
