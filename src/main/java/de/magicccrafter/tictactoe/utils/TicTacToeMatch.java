@@ -3,6 +3,8 @@ package de.magicccrafter.tictactoe.utils;
 import de.magicccrafter.tictactoe.TicTacToe;
 import de.magicccrafter.tictactoe.api.event.TicTacToeMatchEndEvent;
 import de.magicccrafter.tictactoe.api.event.TicTacToeMatchStartEvent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
