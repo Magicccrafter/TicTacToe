@@ -256,7 +256,7 @@ public class TicTacToeMatch {
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
         player.sendTitle("§a§lMatch gewonnen", "§7[§aTicTacToe§7]", 15, 80, 15);
 
-        loser.playSound(playerA.getLocation(), Sound.BLOCK_ANVIL_DESTROY, 1, 1);
+        loser.playSound(loser.getLocation(), Sound.BLOCK_ANVIL_DESTROY, 1, 1);
         loser.sendTitle("§c§lMatch verloren", "§7[§aTicTacToe§7]", 15, 80, 15);
 
         this.getPlayerA().sendMessage(TicTacToe.getInstance().getPrefix() + "§c" + player.getName() + " §ahat das Match gewonnen");
