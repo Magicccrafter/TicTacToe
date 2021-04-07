@@ -4,6 +4,8 @@ This is a TicTacToe Plugin based on the SpigotAPI. The plugin ensures that playe
 
 **Important!** The plugin is only tested in Minecaft Version 1.15.2
 
+**Temporary Test Server** dev.magiccrafter.de
+
 ## Current Features
 
 - Players can send match requests
